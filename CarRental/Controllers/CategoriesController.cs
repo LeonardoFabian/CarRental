@@ -1,12 +1,22 @@
 ﻿using CarRental.Models;
+using CarRental.Services;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.Controllers
 {
     public class CategoriesController : Controller
     {
-        public IActionResult Create()
+        private readonly ICategoriesRepository categoriesRepository;
+
+        public CategoriesController(ICategoriesRepository categoriesRepository)
         {
+            this.categoriesRepository = categoriesRepository;
+        }
+
+        public IActionResult Create()
+        {          
             return View();
         }
 
@@ -17,6 +27,9 @@ namespace CarRental.Controllers
             {
                 return View(category);
             }
+
+            categoriesRepository.Create(category);
+
             return View();
         }
     }
