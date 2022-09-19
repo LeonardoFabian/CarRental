@@ -6,7 +6,7 @@ namespace CarRental.Services
 {
     public interface ICategoriesRepository
     {
-        void Create(Categories category);
+        Task Create(Categories category);
     }
 
     public class CategoriesRepository : ICategoriesRepository
@@ -18,10 +18,10 @@ namespace CarRental.Services
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public void Create(Categories category)
+        public async Task Create(Categories category)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = connection.QuerySingle<int>($@"INSERT INTO Categories(Name, CostPerDay, Passengers, Luggages, LateFeePerHour)
+            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO Categories(Name, CostPerDay, Passengers, Luggages, LateFeePerHour)
                                                     VALUES(@Name, @CostPerDay, @Passengers, @Luggages, @LateFeePerHour);
                                                     SELECT SCOPE_IDENTITY();", category);
 
