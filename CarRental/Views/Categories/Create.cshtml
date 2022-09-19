@@ -5,11 +5,40 @@
 }
 
 <h1>Create Category</h1>
+<h5>Create the categories and costs of the cars to rent.</h5>
+
+<div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-controller="Categories" asp-action="Create">
-    <div class="mb-3">
-        <label for="Name" class="form-label">Name</label>
-        <input type="text" id="Name" name="Name" class="form-control" />
+    <div class="col-md-6 mx-auto">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label asp-for="Passengers" class="form-label"></label>
+                <input type="number" asp-for="Passengers" class="form-control" />
+            </div>
+
+            <div class="col mb-3">
+                <label asp-for="Luggages" class="form-label"></label>
+                <input type="number" asp-for="Luggages" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label asp-for="CostPerDay" class="form-label"></label>
+                <input type="number" asp-for="CostPerDay" class="form-control" />
+            </div>
+
+            <div class="col mb-3">
+                <label asp-for="LateFeePerHour" class="form-label"></label>
+                <input type="number" asp-for="LateFeePerHour" class="form-control" />
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
     </div>

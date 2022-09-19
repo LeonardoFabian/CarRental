@@ -13,6 +13,10 @@ namespace CarRental.Controllers
         [HttpPost]
         public IActionResult Create( Categories category)
         {
+            if ( !ModelState.IsValid)
+            {
+                return View(category);
+            }
             return View();
         }
     }
