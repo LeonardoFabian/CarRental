@@ -28,9 +28,9 @@ namespace CarRental.Controllers
                 return View(category);
             }
 
-            var ifExistsCategory = await categoriesRepository.Exists(category.Name);
+            var alreadyExistsCategory = await categoriesRepository.Exists(category.Name);
 
-            if (ifExistsCategory)
+            if (alreadyExistsCategory)
             {
                 ModelState.AddModelError(nameof(Categories.Name), $"The name {category.Name} already exists.");
 
@@ -40,6 +40,19 @@ namespace CarRental.Controllers
             await categoriesRepository.Create(category);
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> VerifyIfCategoryAlreadyExists(string name)
+        {
+            var alreadyExistsCategory = await categoriesRepository.Exists(name);
+
+            if ( alreadyExistsCategory )
+            {
+                return Json($"The name {name} already exists.");
+            }
+
+            return Json(true);
         }
     }
 }
