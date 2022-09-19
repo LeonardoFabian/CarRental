@@ -7,6 +7,7 @@ namespace CarRental.Services
     public interface ICategoriesRepository
     {
         Task Create(Categories category);
+        Task<bool> Exists(string name);
     }
 
     public class CategoriesRepository : ICategoriesRepository
@@ -21,11 +22,25 @@ namespace CarRental.Services
         public async Task Create(Categories category)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO Categories(Name, CostPerDay, Passengers, Luggages, LateFeePerHour)
-                                                    VALUES(@Name, @CostPerDay, @Passengers, @Luggages, @LateFeePerHour);
-                                                    SELECT SCOPE_IDENTITY();", category);
+            var id = await connection.QuerySingleAsync<int>(
+                @"INSERT INTO Categories(Name, CostPerDay, Passengers, Luggages, LateFeePerHour)
+                VALUES(@Name, @CostPerDay, @Passengers, @Luggages, @LateFeePerHour);
+                SELECT SCOPE_IDENTITY();", 
+                category );
 
             category.Id = id;
+        }
+
+        public async Task<bool> Exists(string name)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var exists = await connection.QueryFirstOrDefaultAsync<int>(
+                @"SELECT 1 
+                FROM Categories 
+                WHERE Name = @Name;", 
+                new {name} );
+
+            return exists == 1;
         }
     }
 }

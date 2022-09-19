@@ -28,6 +28,15 @@ namespace CarRental.Controllers
                 return View(category);
             }
 
+            var ifExistsCategory = await categoriesRepository.Exists(category.Name);
+
+            if (ifExistsCategory)
+            {
+                ModelState.AddModelError(nameof(Categories.Name), $"The name {category.Name} already exists.");
+
+                return View(category);
+            }
+
             await categoriesRepository.Create(category);
 
             return View();
