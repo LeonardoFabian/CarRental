@@ -14,17 +14,20 @@
         <div class="mb-3">
             <label asp-for="Name" class="form-label"></label>
             <input type="text" asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="row g-3">
             <div class="col mb-3">
                 <label asp-for="Passengers" class="form-label"></label>
                 <input type="number" asp-for="Passengers" class="form-control" />
+                <span asp-validation-for="Passengers" class="text-danger"></span>
             </div>
 
             <div class="col mb-3">
                 <label asp-for="Luggages" class="form-label"></label>
                 <input type="number" asp-for="Luggages" class="form-control" />
+                <span asp-validation-for="Luggages" class="text-danger"></span>
             </div>
         </div>
 
@@ -32,14 +35,20 @@
             <div class="col mb-3">
                 <label asp-for="CostPerDay" class="form-label"></label>
                 <input type="number" asp-for="CostPerDay" class="form-control" />
+                <span asp-validation-for="CostPerDay" class="text-danger"></span>
             </div>
 
             <div class="col mb-3">
                 <label asp-for="LateFeePerHour" class="form-label"></label>
                 <input type="number" asp-for="LateFeePerHour" class="form-control" />
+                <span asp-validation-for="LateFeePerHour" class="text-danger"></span>
             </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
