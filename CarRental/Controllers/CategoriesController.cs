@@ -15,6 +15,12 @@ namespace CarRental.Controllers
             this.categoriesRepository = categoriesRepository;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var categories = await categoriesRepository.Get();
+            return View(categories);
+        }
+
         public IActionResult Create()
         {          
             return View();

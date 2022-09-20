@@ -8,6 +8,7 @@ namespace CarRental.Services
     {
         Task Create(Categories category);
         Task<bool> Exists(string name);
+        Task<IEnumerable<Categories>> Get();
     }
 
     public class CategoriesRepository : ICategoriesRepository
@@ -41,6 +42,14 @@ namespace CarRental.Services
                 new {name} );
 
             return exists == 1;
+        }
+
+        public async Task<IEnumerable<Categories>> Get()
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Categories>(
+                @"SELECT Id, Name, CostPerDay, Passengers, Luggages, LateFeePerHour
+                FROM Categories;");
         }
     }
 }

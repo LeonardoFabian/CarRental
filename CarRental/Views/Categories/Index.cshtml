@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Categories>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Categories</h1>
+<h5>The Categories allow you to order your services, features and costs according to the user's needs.'</h5>
+
+<a asp-action="Create" class="btn btn-primary">Add New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Passengers</th>
+            <th scope="col">Luggages</th>
+            <th scope="col">Cost per Day</th>
+            <th scope="col">Late Fee per Hour</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <th scope="row">@category.Id</th>
+                <td>@category.Name</td>
+                <td>@category.Passengers</td>
+                <td>@category.Luggages</td>
+                <td>@category.CostPerDay</td>
+                <td>@category.LateFeePerHour</td>
+                <td>
+                    <a class="btn btn-secondary">Edit</a>
+                    <a class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
